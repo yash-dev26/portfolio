@@ -1,0 +1,301 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg: #09090b;
+    --surface: #111113;
+    --border: rgba(255,255,255,0.07);
+    --muted: #71717a;
+  }
+
+  body {
+    background-color: #09090b;
+    color: #f4f4f5;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #09090b; }
+::-webkit-scrollbar-thumb { background: #27272a; border-radius: 9px; }
+::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+
+/* Graph-paper grid + top-left glow banner pattern (alt to plain dot grid, same dark theme) */
+.banner-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px),
+    radial-gradient(ellipse 60% 100% at 15% 0%, rgba(255,255,255,0.10), transparent 65%);
+  background-size: 28px 28px, 28px 28px, 100% 100%;
+  background-position: -1px -1px, -1px -1px, 0 0;
+}
+
+/* Infinite horizontal tech-chip marquee (Projects section) */
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: max-content;
+  animation: marquee-scroll 16s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Elevated button shell – heyyswap.in social pill wrapper */
+.btn-shell {
+  display: inline-flex;
+  padding: 1.5px;
+  border-radius: 4px;
+  background: linear-gradient(to bottom, rgba(63,63,70,0.8), rgba(39,39,42,0.9));
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Inner pill surface */
+.btn-surface {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: #18181b;
+  color: #d4d4d8;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  border-radius: 3px;
+  border: 0.5px solid #27272a;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 1;
+}
+.btn-surface:hover {
+  transform: translateY(-1px);
+  background: rgba(39,39,42,0.8);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+/* Primary action button shell – Resume / Connect */
+.btn-primary-shell {
+  display: inline-flex;
+  padding: 4px;
+  border-radius: 6px;
+  background: linear-gradient(to bottom, rgba(63,63,70,0.8), rgba(39,39,42,0.5));
+  border: 1px solid rgba(63,63,70,0.6);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.btn-primary-surface {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: #27272a;
+  color: #f4f4f5;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  border-radius: 4px;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.4),
+    0 6px 12px rgba(0,0,0,0.6),
+    0 0 0 1px rgba(255,255,255,0.05),
+    inset 0 1px 0.5px rgba(255,255,255,0.1);
+  transition: transform 0.3s cubic-bezier(0.23,1,0.32,1), box-shadow 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-primary-surface:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(255,255,255,0.05),
+    inset 0 1px 0.5px rgba(255,255,255,0.1);
+}
+
+/* Bento card – used throughout for section content */
+.bento-card {
+  background: #111113;
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: border-color 0.2s ease;
+}
+.bento-card:hover {
+  border-color: rgba(255,255,255,0.13);
+}
+
+/* Work/Project card – heyyswap.in gradient shell card */
+.work-card-shell {
+  padding: 4px;
+  border-radius: 8px;
+  background: linear-gradient(to bottom, rgba(39,39,42,0.8), rgba(24,24,27,0.5));
+  border: 1px solid rgba(39,39,42,0.6);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.work-card-inner {
+  border-radius: 5px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.02);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.4),
+    0 6px 12px rgba(0,0,0,0.6),
+    0 0 0 1px rgba(255,255,255,0.05),
+    inset 0 1px 0.5px rgba(255,255,255,0.06);
+  transition: transform 0.3s cubic-bezier(0.23,1,0.32,1), box-shadow 0.3s ease;
+}
+.work-card-inner:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+}
+
+/* Section watermark heading style (heyyswap.in "Work" large dimmed text) */
+.section-watermark {
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: #27272a;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  user-select: none;
+}
+
+/* Nav link font — matches the section headings (Work, Experience, Projects...) */
+.nav-heading-font {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+}
+
+/* Oneko sprite rendering */
+.oneko-sprite {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* ============================================================
+   Light mode — toggled via <html class="light">
+   ============================================================ */
+html.light body {
+  background-color: #ffffff;
+  color: #18181b;
+}
+
+html.light::-webkit-scrollbar-track { background: #ffffff; }
+html.light::-webkit-scrollbar-thumb { background: #e4e4e7; }
+html.light::-webkit-scrollbar-thumb:hover { background: #d4d4d8; }
+
+html.light .banner-grid {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px),
+    radial-gradient(ellipse 60% 100% at 15% 0%, rgba(0,0,0,0.07), transparent 65%);
+}
+
+html.light .btn-shell {
+  background: linear-gradient(to bottom, rgba(212,212,216,0.9), rgba(228,228,231,0.9));
+}
+html.light .btn-surface {
+  background: #f4f4f5;
+  color: #3f3f46;
+  border-color: #e4e4e7;
+}
+html.light .btn-surface:hover {
+  background: rgba(228,228,231,0.9);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+html.light .btn-primary-shell {
+  background: linear-gradient(to bottom, rgba(212,212,216,0.9), rgba(228,228,231,0.6));
+  border-color: rgba(212,212,216,0.8);
+}
+html.light .btn-primary-surface {
+  background: #18181b;
+  color: #fafafa;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.08),
+    0 6px 12px rgba(0,0,0,0.06),
+    0 0 0 1px rgba(0,0,0,0.04),
+    inset 0 1px 0.5px rgba(255,255,255,0.1);
+}
+
+html.light .bento-card {
+  background: #fafafa;
+  border-color: rgba(0,0,0,0.08);
+}
+html.light .bento-card:hover {
+  border-color: rgba(0,0,0,0.14);
+}
+
+html.light .work-card-shell {
+  background: linear-gradient(to bottom, rgba(228,228,231,0.9), rgba(244,244,245,0.6));
+  border-color: rgba(228,228,231,0.9);
+}
+html.light .work-card-inner {
+  background: rgba(0,0,0,0.015);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.05),
+    0 6px 12px rgba(0,0,0,0.05),
+    0 0 0 1px rgba(0,0,0,0.05);
+}
+
+html.light .section-watermark {
+  color: #e4e4e7;
+}
+
+/* Tailwind utility overrides for scattered dark-only classes */
+html.light .bg-neutral-950,
+html.light .bg-\[\#09090b\] { background-color: #ffffff; }
+html.light .bg-neutral-950\/90 { background-color: rgba(255,255,255,0.9); }
+html.light .bg-neutral-950\/95 { background-color: rgba(255,255,255,0.95); }
+html.light .bg-neutral-900 { background-color: #f4f4f5; }
+html.light .bg-neutral-900\/60 { background-color: rgba(244,244,245,0.7); }
+html.light .bg-neutral-900\/80 { background-color: rgba(244,244,245,0.9); }
+html.light .bg-neutral-800 { background-color: #e4e4e7; }
+html.light .bg-neutral-700 { background-color: #d4d4d8; }
+html.light .bg-neutral-600 { background-color: #a1a1aa; }
+html.light .bg-white { background-color: #18181b; }
+html.light .bg-white\/3 { background-color: rgba(0,0,0,0.035); }
+html.light .bg-white\/4 { background-color: rgba(0,0,0,0.045); }
+html.light .bg-white\/5 { background-color: rgba(0,0,0,0.055); }
+html.light .hover\:bg-neutral-200:hover { background-color: #27272a; }
+html.light .hover\:bg-neutral-700:hover { background-color: #d4d4d8; }
+html.light .hover\:bg-neutral-800:hover { background-color: #e4e4e7; }
+
+html.light .border-neutral-950 { border-color: #ffffff; }
+html.light .border-neutral-900 { border-color: #e4e4e7; }
+html.light .border-neutral-800 { border-color: #d4d4d8; }
+html.light .border-neutral-700 { border-color: #a1a1aa; }
+html.light .border-neutral-600 { border-color: #71717a; }
+html.light .border-white\/10 { border-color: rgba(0,0,0,0.1); }
+html.light .border-white\/5 { border-color: rgba(0,0,0,0.06); }
+html.light .hover\:border-neutral-600:hover { border-color: #71717a; }
+html.light .focus\:border-neutral-600:focus { border-color: #71717a; }
+
+html.light .text-neutral-950 { color: #fafafa; }
+html.light .text-white { color: #18181b; }
+html.light .text-neutral-100 { color: #18181b; }
+html.light .text-neutral-200 { color: #27272a; }
+html.light .text-neutral-300 { color: #3f3f46; }
+html.light .text-neutral-400 { color: #52525b; }
+html.light .text-neutral-500 { color: #71717a; }
+html.light .text-neutral-600 { color: #52525b; }
+html.light .text-neutral-700 { color: #3f3f46; }
+html.light .hover\:text-white:hover { color: #18181b; }
+html.light .hover\:text-neutral-200:hover { color: #27272a; }
+html.light .hover\:text-neutral-300:hover { color: #3f3f46; }
