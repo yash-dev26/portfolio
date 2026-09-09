@@ -3,6 +3,7 @@ import { Terminal, MapPin, Send } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, TwitterIcon } from './BrandIcons';
 import { profileData } from '../data/profileData';
 import { getGmailComposeUrl } from '../utils/mail';
+import { getTechIconUrl } from '../utils/badges';
 
 export function TechStack({ onOpenContact }) {
   return (
@@ -73,6 +74,7 @@ export function TechStack({ onOpenContact }) {
             </div>
 
             <div className="space-y-4 flex-1">
+              {/*
               {[
                 { label: 'Languages', items: ['Python', 'TypeScript', 'JavaScript'] },
                 { label: 'Backend', items: ['Node.js', 'Express', 'Fastify', 'FastAPI'] },
@@ -94,6 +96,43 @@ export function TechStack({ onOpenContact }) {
                         {s}
                       </span>
                     ))}
+                  </div>
+                </div>
+              ))}
+              */}
+
+              {[
+                { label: 'Languages', items: ['Python', 'TypeScript', 'JavaScript'] },
+                { label: 'Backend', items: ['Node.js', 'Express', 'Fastify', 'FastAPI'] },
+                { label: 'Applied AI', items: ['LangChain', 'LangGraph', 'Qdrant', 'OpenAI API', 'LangSmith', 'Ragas Eval'] },
+                { label: 'Frontend', items: ['React', 'TailwindCSS'] },
+                { label: 'Databases & Infra', items: ['MongoDB', 'Redis', 'Docker', 'PostgreSQL'] },
+                { label: 'DevOps & Tooling', items: ['GitHub Actions'] },
+              ].map(({ label, items }) => (
+                <div key={label}>
+                  <div className="text-[9px] font-bold uppercase tracking-widest text-neutral-600 font-mono mb-1.5">
+                    {label}
+                  </div>
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                    {items.map((s) => {
+                      const iconUrl = getTechIconUrl(s);
+                      return (
+                        <span key={s} title={s} className="inline-flex items-center gap-1.5 text-[11px] font-mono text-neutral-500">
+                          {iconUrl ? (
+                            <img
+                              src={iconUrl}
+                              alt=""
+                              className={`w-4 h-4 object-contain ${iconUrl.startsWith('/assets/') ? 'local-tech-icon brightness-0 invert opacity-60' : 'opacity-70'}`}
+                            />
+                          ) : (
+                            <span className="w-4 h-4 flex items-center justify-center text-[8px] font-bold text-neutral-500 border border-neutral-700 rounded-sm">
+                              {s.slice(0, 2).toUpperCase()}
+                            </span>
+                          )}
+                          <span>{s}</span>
+                        </span>
+                      );
+                    })}
                   </div>
                 </div>
               ))}

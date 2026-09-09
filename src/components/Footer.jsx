@@ -1,5 +1,6 @@
 import React from 'react';
 import { profileData } from '../data/profileData';
+import { GithubIcon, LinkedinIcon, TwitterIcon } from './BrandIcons';
 
 export function Footer() {
   const calLink = profileData.personal.calLink;
@@ -7,10 +8,6 @@ export function Footer() {
   return (
     <footer className="pt-24 pb-8 text-neutral-500 text-xs font-mono">
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
-
-        {/* "Heyy, if you made it this far, let's chat." — heyyswap.in style closer.
-            "Let's Connect" (the full contact panel) already lives in the About
-            section — this closer is just the direct booking CTA. */}
         <div className="flex flex-col items-center text-center">
           <h2 className="font-sans text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug max-w-md">
             Heyy, if you made it this far, let's chat.
@@ -35,8 +32,40 @@ export function Footer() {
           </a>
         </div>
 
-        <div className="mt-16 pt-6 border-t border-neutral-900 text-center text-[11px]">
-          Design & Developed by {profileData.personal.name} © {new Date().getFullYear()}. All rights reserved.
+        <div className="mt-16 pt-6 border-t border-neutral-900 flex items-center justify-between gap-6">
+          <span className="text-sm font-sans text-neutral-400">
+            Built by {profileData.personal.name}
+          </span>
+
+          <nav className="flex items-center gap-5 text-neutral-500" aria-label="Social links">
+            <a
+              href={profileData.socialLinks.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="GitHub"
+              className="hover:text-white transition-colors"
+            >
+              <GithubIcon className="w-4 h-4" />
+            </a>
+            <a
+              href={profileData.socialLinks.twitter}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="X / Twitter"
+              className="hover:text-white transition-colors"
+            >
+              <TwitterIcon className="w-4 h-4" />
+            </a>
+            <a
+              href={profileData.socialLinks.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="LinkedIn"
+              className="hover:text-white transition-colors"
+            >
+              <LinkedinIcon className="w-4 h-4" />
+            </a>
+          </nav>
         </div>
 
       </div>

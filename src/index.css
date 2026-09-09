@@ -46,7 +46,7 @@
   align-items: center;
   gap: 0.4rem;
   width: max-content;
-  animation: marquee-scroll 16s linear infinite;
+  animation: marquee-scroll 32s linear infinite;
 }
 .marquee-track:hover {
   animation-play-state: paused;
@@ -256,6 +256,11 @@ html.light .work-card-inner {
 
 html.light .section-watermark {
   color: #e4e4e7;
+}
+
+html.light .local-tech-icon {
+  filter: brightness(0) invert(0.55);
+  opacity: 0.7;
 }
 
 /* Tailwind utility overrides for scattered dark-only classes */

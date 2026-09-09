@@ -3,6 +3,7 @@ import { ScrollProgressBar } from './components/ScrollProgressBar';
 import { Header } from './components/Header';
 import { HeroBanner } from './components/HeroBanner';
 import { TechStack } from './components/TechStack';
+import { Activity } from './components/Activity';
 import { Experience } from './components/Experience';
 import { Projects } from './components/Projects';
 import { Certifications } from './components/Certifications';
@@ -63,6 +64,9 @@ export default function App() {
 
         {/* Tech Stack & Skills Section (Inspiration: luffytaro.me) */}
         <TechStack onOpenContact={() => setIsContactOpen(true)} />
+
+        {/* GitHub contribution activity */}
+        <Activity />
 
         {/* Work & Career Experience Timeline */}
         <Experience />

@@ -1,27 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  X, CheckCircle2, ExternalLink,
-  Code2, FileCode, Server, Zap, Bot, Database, Sparkles,
-  FolderGit2, Layers, Box, Layout, Palette, GitBranch, Activity, Gauge
-} from 'lucide-react';
+import { X, CheckCircle2, ExternalLink, Play } from 'lucide-react';
 import { GithubIcon } from './BrandIcons';
 import { profileData } from '../data/profileData';
-
-// Maps the string icon names stored in profileData.techStack to actual components.
-const ICON_MAP = {
-  Code2, FileCode, Server, Zap, Bot, Database, Sparkles,
-  FolderGit2, Layers, Box, Layout, Palette, GitBranch, Activity, Gauge
-};
-
-// Looks up a tag's matching techStack entry (for a consistent icon + color),
-// falling back to a generic glyph for tags that aren't in the stack list.
-function getTagMeta(tagName) {
-  const entry = profileData.techStack.find(
-    (t) => t.name.toLowerCase() === tagName.toLowerCase()
-  );
-  const Icon = ICON_MAP[entry?.icon] || Code2;
-  return { Icon, color: entry?.badgeColor || 'from-neutral-500/20 to-neutral-500/10 text-neutral-400 border-neutral-500/30' };
-}
+import { getTechIconUrl } from '../utils/badges';
 
 // Extracts a playable YouTube embed ID from a youtu.be/ or youtube.com/ link.
 function getYouTubeEmbedId(url) {
@@ -41,27 +22,24 @@ function isYouTubeUrl(url) {
   return !!getYouTubeEmbedId(url);
 }
 
-// Infinite, smooth horizontal marquee of tech chips (icon + label).
-// Duplicates the list once so the CSS loop is seamless.
+// Compact, wrapping row of monochrome technology marks.
 function TechMarquee({ tags }) {
   if (!tags || tags.length === 0) return null;
-  const loop = [...tags, ...tags];
   return (
-    <div className="marquee-mask overflow-hidden">
-      <div className="marquee-track">
-        {loop.map((tag, i) => {
-          const { Icon, color } = getTagMeta(tag);
-          return (
-            <span
-              key={`${tag}-${i}`}
-              className={`shrink-0 inline-flex items-center gap-1.5 text-[10px] font-mono px-2 py-1 rounded-md border bg-gradient-to-b ${color}`}
-            >
-              <Icon className="w-3 h-3 opacity-80" />
-              {tag}
-            </span>
-          );
-        })}
-      </div>
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+      {tags.map((tag) => {
+        const iconUrl = getTechIconUrl(tag);
+        if (!iconUrl) return null;
+        return (
+          <img
+            key={tag}
+            src={iconUrl}
+            alt={tag}
+            title={tag}
+            className={`w-4 h-4 object-contain ${iconUrl.startsWith('/assets/') ? 'local-tech-icon brightness-0 invert opacity-60' : 'opacity-70'}`}
+          />
+        );
+      })}
     </div>
   );
 }
@@ -156,8 +134,34 @@ function ProjectMedia({ project }) {
   );
 }
 
+function YouTubePreview({ project, onPlay }) {
+  const embedId = getYouTubeEmbedId(project.videoUrl);
+
+  return (
+    <button
+      type="button"
+      onClick={onPlay}
+      className="absolute inset-0 w-full h-full cursor-pointer group"
+      title="Play project video"
+    >
+      <img
+        src={`https://img.youtube.com/vi/${embedId}/maxresdefault.jpg`}
+        alt={project.title}
+        onError={(event) => { event.currentTarget.src = project.previewImage; }}
+        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+      <span className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/35 transition-colors">
+        <span className="flex items-center justify-center w-14 h-14 rounded-full bg-white text-neutral-950 shadow-xl group-hover:scale-105 transition-transform">
+          <Play className="w-6 h-6 ml-0.5 fill-current" />
+        </span>
+      </span>
+    </button>
+  );
+}
+
 export function Projects({ showToast }) {
   const [selectedProject, setSelectedProject] = useState(null);
+  const [videoProject, setVideoProject] = useState(null);
 
   const handleAction = (type, url) => {
     if (!url || url.includes('#')) {
@@ -176,7 +180,7 @@ export function Projects({ showToast }) {
           <span className="section-watermark">Projects</span>
         </div>
 
-        {/* Project Cards Grid – heyyswap.in work-card-shell style, 2-col.
+        {/* Project Cards Grid – work-card-shell style, 2-col.
             Every card shares the exact same DOM shape (media block, overlay row,
             content block) so rows stay aligned regardless of image vs. video media. */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
@@ -191,7 +195,7 @@ export function Projects({ showToast }) {
                   <div className="relative w-full aspect-video overflow-hidden bg-neutral-900 rounded-t-[5px]">
                     {hasVideo ? (
                       <>
-                        <ProjectMedia project={project} />
+                        <YouTubePreview project={project} onPlay={() => setVideoProject(project)} />
                         <div className="absolute top-3 left-3">
                           <span className="text-[10px] font-mono px-2 py-1 rounded bg-black/60 border border-white/10 text-neutral-300 backdrop-blur-sm">
                             {project.category}
@@ -221,7 +225,11 @@ export function Projects({ showToast }) {
                           title={project.liveUrl ? 'Open live site' : 'Live site coming soon'}
                         >
                           <ProjectMedia project={project} />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent transition-colors duration-300 group-hover:from-black/75" />
+                          <span className="absolute inset-0 flex items-center justify-center gap-2 text-xs font-mono font-bold tracking-wider text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <ExternalLink className="w-4 h-4" />
+                            <span>View project</span>
+                          </span>
                         </button>
 
                         <div className="absolute top-3 left-3 pointer-events-none">
@@ -248,7 +256,7 @@ export function Projects({ showToast }) {
                     <h3 className="text-sm font-bold text-white tracking-tight leading-snug mb-1.5">
                       {project.title}
                     </h3>
-                    <p className="text-neutral-500 text-xs leading-relaxed line-clamp-2 mb-3 tracking-tight">
+                    <p className="text-neutral-500 text-xs leading-relaxed line-clamp-4 mb-3 tracking-tight">
                       {project.summary}
                     </p>
 
@@ -272,6 +280,34 @@ export function Projects({ showToast }) {
         </div>
 
       </div>
+
+      {videoProject && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
+          onClick={() => setVideoProject(null)}
+        >
+          <div
+            className="relative w-full max-w-3xl aspect-video rounded-xl overflow-hidden border border-neutral-800 bg-black shadow-2xl"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setVideoProject(null)}
+              className="absolute top-3 right-3 z-10 p-2 rounded-full bg-black/70 text-neutral-300 hover:text-white border border-white/10 transition-colors"
+              title="Close video"
+            >
+              <X className="w-4 h-4" />
+            </button>
+            <iframe
+              src={`https://www.youtube.com/embed/${getYouTubeEmbedId(videoProject.videoUrl)}?autoplay=1&rel=0`}
+              title={videoProject.title}
+              className="w-full h-full border-0"
+              allow="autoplay; encrypted-media; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      )}
 
       {/* Project Detail Modal */}
       {selectedProject && (
