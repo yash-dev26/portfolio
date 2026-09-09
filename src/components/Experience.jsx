@@ -1,5 +1,5 @@
 import React from 'react';
-import { Briefcase, Building2 } from 'lucide-react';
+import { Building2 } from 'lucide-react';
 import { profileData } from '../data/profileData';
 
 export function Experience() {

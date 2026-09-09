@@ -1,5 +1,5 @@
 import React from 'react';
-import { Terminal, MapPin, Send, Sparkles } from 'lucide-react';
+import { Terminal, MapPin, Send } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, TwitterIcon } from './BrandIcons';
 import { profileData } from '../data/profileData';
 import { getGmailComposeUrl } from '../utils/mail';
@@ -114,7 +114,6 @@ export function TechStack({ onOpenContact }) {
               <div className="text-base font-bold text-white tracking-tight">{profileData.personal.location}</div>
             </div>
             <div className="flex items-center gap-1.5 text-xs text-neutral-500 font-mono mt-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-ping inline-block" />
               <span>Open to internships & collabs</span>
             </div>
           </div>

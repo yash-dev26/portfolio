@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ScrollProgressBar } from './components/ScrollProgressBar';
 import { Header } from './components/Header';
 import { HeroBanner } from './components/HeroBanner';
 import { TechStack } from './components/TechStack';
@@ -9,7 +10,6 @@ import { OnekoCat } from './components/OnekoCat';
 import { ContactModal } from './components/ContactModal';
 import { ResumeModal } from './components/ResumeModal';
 import { Footer } from './components/Footer';
-import { CheckCircle } from 'lucide-react';
 
 export default function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -34,7 +34,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#09090b] text-neutral-100 selection:bg-neutral-800 selection:text-white font-sans relative">
-      
+
+      <ScrollProgressBar />
+
       {/* Global Toast Notification */}
       {toastMessage && (
         <div className="fixed top-16 right-4 z-50">

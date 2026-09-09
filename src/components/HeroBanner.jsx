@@ -44,7 +44,7 @@ export function HeroBanner({ onOpenResume }) {
     <section id="hero" className="pt-24 pb-6">
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
 
-        {/* ── Banner Cover ── */}
+        {/* Banner cover */}
         <div className="w-full relative">
 
           {/* Banner header: grid + glow pattern + status badge */}
@@ -53,7 +53,6 @@ export function HeroBanner({ onOpenResume }) {
             {/* Status badge – top right */}
             <div className="absolute top-4 right-4 z-10">
               <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-950/90 border border-neutral-800 backdrop-blur-sm">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 <span className="text-[11px] font-mono text-neutral-300 tracking-tight">
                   {profileData.personal.status}
                 </span>
@@ -61,7 +60,7 @@ export function HeroBanner({ onOpenResume }) {
             </div>
           </div>
 
-          {/* ── Avatar + Name Row (overlapping banner) ── */}
+          {/* Avatar + name row (overlapping banner) */}
           <div className="bg-neutral-950 border border-t-0 border-neutral-900 rounded-b-2xl px-5 sm:px-7 pb-7">
 
             {/* Avatar overlapping banner bottom by ~40px */}
@@ -110,7 +109,7 @@ export function HeroBanner({ onOpenResume }) {
               </p>
             </div>
 
-            {/* ── Bio ── */}
+            {/* Bio */}
             <p className="mt-5 text-neutral-400 text-sm leading-relaxed tracking-tight max-w-xl">
               Building{' '}
               <span className="font-mono font-medium text-neutral-200">scalable distributed systems</span>
@@ -119,7 +118,7 @@ export function HeroBanner({ onOpenResume }) {
               {' '}with careful attention to real-world constraints.
             </p>
 
-            {/* ── Primary Action — Resume only; Connect now lives in the "Let's Connect" footer CTA ── */}
+            {/* Primary action — Resume only; Connect lives in the "Let's Connect" footer CTA */}
             <div className="flex items-center gap-2 mt-5">
               <div className="btn-primary-shell">
                 <button onClick={onOpenResume} className="btn-primary-surface">
@@ -129,7 +128,7 @@ export function HeroBanner({ onOpenResume }) {
               </div>
             </div>
 
-            {/* ── Social Links ── */}
+            {/* Social links */}
             <div className="mt-5">
               <p className="text-[10px] font-mono text-neutral-500 mb-2 tracking-tight">
                 Here are my <span className="text-[12px] font-medium text-neutral-400">socials</span>
